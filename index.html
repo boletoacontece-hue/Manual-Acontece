@@ -142,9 +142,9 @@
   .m-body-in{overflow:hidden}
   .m-content{padding:18px 20px 22px;border-top:1px solid var(--line-soft);margin:0 18px}
 
-  .m-content p{margin:0 0 14px;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
+  .m-content p{margin:0 0 14px;text-align:left;hyphens:none;-webkit-hyphens:none;word-break:normal;overflow-wrap:break-word}
   .m-content p:last-child{margin-bottom:0}
-  .callout p,.ex,.faq-a p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+  .callout p,.ex,.faq-a p{text-align:left;hyphens:none;-webkit-hyphens:none;word-break:normal;overflow-wrap:break-word}
   /* não justificar onde fica ruim */
   .m-content p.legal,.cc,.m-sum,h4.sub{text-align:left;hyphens:manual}
   .m-content a{color:var(--green-deep);text-decoration:none;border-bottom:1px solid var(--green-tint);font-weight:600}
@@ -516,7 +516,7 @@ const modules=[
  <div class="callout note"><span class="lbl">Aluguel por competência</span>
  <p>O pagamento refere-se aos dias de posse do mês anterior. <em>Exemplo:</em> contrato iniciado em 16/01 — no dia 05/02 paga-se o proporcional de 16/01 a 31/01.</p></div>
  <div class="callout"><span class="lbl">Não recebeu o boleto?</span><p>Lembretes por e-mail são cortesia e não substituem sua responsabilidade de emitir a 2ª via no site. Em caso de dificuldade, contate a imobiliária <strong>antes das 17h do dia do vencimento</strong> pelo (61) 3344-4112 ou pelos e-mails do financeiro/cobrança.</p></div>
- <p><strong>Cobranças em duplicidade ou divergentes:</strong> verifique primeiro se não é um período anterior incluído na fatura. Persistindo a dúvida, questione <strong>antes do vencimento</strong>. Pagar a menor caracteriza inadimplência.</p>
+ <p><strong>Cobranças em duplicidade ou divergentes:</strong> verifique primeiro se não é um período anterior incluído na fatura. Persistindo a dúvida, questione <strong>antes do vencimento</strong>. Pagar a menor caracteriza inadimplência. Mesmo a <strong>consignação em pagamento</strong> (judicial ou extrajudicial) não afasta a mora quando o pagamento é parcial, salvo ordem judicial que suspenda a exigibilidade da obrigação.</p>
  <h4 class="sub">Se houver atraso</h4>
  <ul class="list">
    <li>A partir do <strong>1º dia</strong> após o vencimento já há inadimplência — não existe prazo mínimo de tolerância.</li>
@@ -644,6 +644,7 @@ const modules=[
  <h4 class="sub">Venda do imóvel</h4>
  <p>O Locador não pode pedir o imóvel durante a vigência, mas pode vendê-lo. Nesse caso, você tem <strong>direito de preferência</strong>: 30 dias para adquirir em igualdade de condições ("preço por preço"). Não exercido, o imóvel pode ser vendido a terceiros.</p>
  <p>A partir da aquisição, o novo proprietário tem <strong>90 dias</strong> para denunciar o contrato (pedir a desocupação). Se não o fizer, presume-se a concordância com a continuidade da locação.</p>
+ <p>Há situações em que <strong>não cabe</strong> o direito de preferência, como perda da propriedade por dívida ou decisão judicial, permuta, doação, integralização de capital, cisão, fusão e incorporação.</p>
  <h4 class="sub">Falecimento do locatário</h4>
  <p>A família está protegida: o cônjuge ou companheiro sobrevivente permanece na locação; na ausência destes, o direito se estende a herdeiros ou dependentes que residiam no imóvel. <strong>Comunique imediatamente</strong> à imobiliária para atualização cadastral, inclusive das garantias (pode ser necessária ratificação da fiança, nova garantia ou aprovação junto à empresa garantidora).</p>
  <h4 class="sub">Cessão, sublocação e transferência</h4>

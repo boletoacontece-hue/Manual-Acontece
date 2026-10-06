@@ -312,6 +312,100 @@
     body.print-one .module.print-target table.tbl{margin:6mm 0}
     body.print-one .module.print-target .m-printfoot{display:block;margin:10mm 4mm 0;padding-top:6mm;border-top:1px solid var(--line);text-align:center;font-size:9pt;color:var(--ink-faint);line-height:1.7}
   }
+  /* ===================== ASSISTENTE (widget flutuante) ===================== */
+  .ac-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:80;
+    width:60px;height:60px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+    color:#fff;background:linear-gradient(145deg,var(--green-700),var(--green-deep));
+    box-shadow:0 6px 16px -4px rgba(35,87,36,.5),0 2px 6px rgba(43,43,43,.18);
+    transition:transform .18s ease, box-shadow .18s ease}
+  .ac-fab:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 22px -6px rgba(35,87,36,.55)}
+  .ac-fab:active{transform:scale(.97)}
+  .ac-fab svg{width:27px;height:27px}
+  .ac-fab .ac-ping{position:absolute;top:3px;right:4px;width:11px;height:11px;border-radius:50%;background:var(--green-cta);border:2px solid #fff}
+  .ac-fab .ac-ico-close{display:none}
+  .ac-open .ac-fab .ac-ico-chat{display:none}
+  .ac-open .ac-fab .ac-ico-close{display:block}
+  .ac-open .ac-fab .ac-ping{display:none}
+
+  .ac-nudge{position:fixed;right:88px;bottom:calc(32px + env(safe-area-inset-bottom,0px));z-index:79;
+    max-width:210px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:14px;
+    padding:10px 13px;font-size:13px;font-weight:500;line-height:1.4;box-shadow:var(--shadow);
+    opacity:0;transform:translateX(8px);pointer-events:none;transition:opacity .25s,transform .25s}
+  .ac-nudge.show{opacity:1;transform:none;pointer-events:auto}
+  .ac-nudge::after{content:"";position:absolute;right:-6px;bottom:16px;width:12px;height:12px;background:#fff;
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(-45deg)}
+  .ac-nudge b{color:var(--green);font-weight:700}
+  .ac-nudge .ac-nudge-x{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);
+    background:#fff;color:var(--ink-faint);font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center}
+
+  .ac-panel{position:fixed;right:20px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:81;
+    width:380px;max-width:calc(100vw - 32px);height:min(620px,78vh);
+    background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:0 18px 50px -12px rgba(43,43,43,.4),0 6px 16px rgba(43,43,43,.12);
+    opacity:0;transform:translateY(14px) scale(.98);pointer-events:none;transform-origin:bottom right;
+    transition:opacity .2s ease, transform .2s ease}
+  .ac-open .ac-panel{opacity:1;transform:none;pointer-events:auto}
+
+  .ac-head{display:flex;align-items:center;gap:11px;padding:14px 15px;
+    background:linear-gradient(135deg,var(--green-700),var(--green-deep));color:#fff;flex:none}
+  .ac-head .ac-ava{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
+  .ac-head .ac-ava svg{width:21px;height:21px}
+  .ac-head .ac-h-tt{font-family:var(--display);font-weight:700;font-size:15px;line-height:1.2}
+  .ac-head .ac-h-sub{font-size:11.5px;opacity:.85;display:flex;align-items:center;gap:5px;margin-top:2px}
+  .ac-head .ac-dot{width:7px;height:7px;border-radius:50%;background:var(--green-cta);box-shadow:0 0 0 2px rgba(84,184,74,.3)}
+  .ac-head .ac-x{margin-left:auto;width:30px;height:30px;border:0;border-radius:9px;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;display:grid;place-items:center}
+  .ac-head .ac-x:hover{background:rgba(255,255,255,.22)}
+  .ac-head .ac-x svg{width:17px;height:17px}
+
+  .ac-msgs{flex:1;overflow-y:auto;padding:16px 15px 6px;display:flex;flex-direction:column;gap:11px;background:var(--bg)}
+  .ac-msgs::-webkit-scrollbar{width:8px}.ac-msgs::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+  .ac-row{display:flex;gap:8px;max-width:88%}
+  .ac-row.bot{align-self:flex-start}
+  .ac-row.me{align-self:flex-end;flex-direction:row-reverse}
+  .ac-mava{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;background:var(--green);color:#fff;margin-top:2px}
+  .ac-mava svg{width:15px;height:15px}
+  .ac-bubble{padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;white-space:normal;word-break:normal;overflow-wrap:break-word}
+  .ac-row.bot .ac-bubble{background:#fff;border:1px solid var(--line);border-top-left-radius:5px;color:var(--ink)}
+  .ac-row.me .ac-bubble{background:var(--green);color:#fff;border-top-right-radius:5px}
+  .ac-bubble a{color:inherit;font-weight:600;text-decoration:underline}
+  .ac-row.bot .ac-bubble a{color:var(--green)}
+  .ac-bubble strong{font-weight:700}
+
+  .ac-jumps{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .ac-jump{display:inline-flex;align-items:center;gap:6px;background:var(--green-tint);border:1px solid #cfe0cb;color:var(--green-deep);
+    font-size:12.5px;font-weight:600;font-family:var(--body);padding:7px 11px;border-radius:999px;cursor:pointer;transition:.14s}
+  .ac-jump:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  .ac-jump svg{width:13px;height:13px}
+
+  .ac-typing{display:flex;gap:4px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:14px;border-top-left-radius:5px;width:fit-content}
+  .ac-typing span{width:7px;height:7px;border-radius:50%;background:var(--ink-faint);animation:acbnc 1s infinite ease-in-out}
+  .ac-typing span:nth-child(2){animation-delay:.15s}.ac-typing span:nth-child(3){animation-delay:.3s}
+  @keyframes acbnc{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-4px);opacity:1}}
+
+  .ac-chips{display:flex;flex-wrap:wrap;gap:7px;padding:4px 15px 12px;background:var(--bg)}
+  .ac-chip{background:#fff;border:1px solid var(--line);color:var(--ink-soft);font-family:var(--body);font-size:12.5px;font-weight:500;
+    padding:7px 11px;border-radius:999px;cursor:pointer;transition:.14s}
+  .ac-chip:hover{border-color:var(--green);color:var(--green)}
+
+  .ac-input{display:flex;align-items:flex-end;gap:8px;padding:11px 12px;border-top:1px solid var(--line);background:var(--card);flex:none}
+  .ac-input textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);
+    font-family:var(--body);font-size:14px;line-height:1.45;padding:10px 12px;max-height:110px;outline:none}
+  .ac-input textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(44,110,46,.12)}
+  .ac-send{width:42px;height:42px;flex:none;border:0;border-radius:12px;background:var(--green);color:#fff;cursor:pointer;display:grid;place-items:center;transition:.14s}
+  .ac-send:hover{background:var(--green-deep)}
+  .ac-send:disabled{opacity:.45;cursor:default}
+  .ac-send svg{width:19px;height:19px}
+  .ac-foot{text-align:center;font-size:10.5px;color:var(--ink-faint);padding:0 0 9px;background:var(--card)}
+
+  @media (max-width:480px){
+    .ac-panel{right:12px;left:12px;width:auto;max-width:none;bottom:calc(84px + env(safe-area-inset-bottom,0px));height:min(72vh,560px)}
+    .ac-fab{right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+    .ac-nudge{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .ac-fab,.ac-panel,.ac-nudge{transition:none}.ac-typing span{animation:none}
+  }
+  @media print{.ac-fab,.ac-panel,.ac-nudge{display:none!important}}
 </style>
 </head>
 <body>
@@ -822,6 +916,206 @@ let toastT;function showToast(msg){const t=document.getElementById("toast");t.te
 
 window.addEventListener("load",()=>{const h=decodeURIComponent(location.hash.replace("#",""));if(h&&document.getElementById(h)){setTimeout(()=>openModule(h,true),300);}updateExpandLabel();});
 window.addEventListener("hashchange",()=>{const h=decodeURIComponent(location.hash.replace("#",""));if(h&&document.getElementById(h))openModule(h,true);});
+</script>
+<!-- ===================== ASSISTENTE ACONTECE (widget) ===================== -->
+<div class="ac-nudge" id="acNudge" role="status">
+  <button class="ac-nudge-x" id="acNudgeX" aria-label="Fechar">✕</button>
+  Olá! Posso te ajudar a <b>encontrar</b> o que precisa no manual. 🙂
+</div>
+
+<div class="ac-panel" id="acPanel" role="dialog" aria-label="Assistente Acontece" aria-modal="false">
+  <div class="ac-head">
+    <span class="ac-ava">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </span>
+    <div>
+      <div class="ac-h-tt" id="acTitle">Assistente Acontece</div>
+      <div class="ac-h-sub"><span class="ac-dot"></span><span id="acSub">Tire dúvidas sobre o manual</span></div>
+    </div>
+    <button class="ac-x" id="acClose" aria-label="Fechar assistente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="ac-msgs" id="acMsgs"></div>
+  <div class="ac-chips" id="acChips"></div>
+  <div class="ac-input">
+    <textarea id="acText" rows="1" placeholder="Escreva sua dúvida…" aria-label="Sua mensagem"></textarea>
+    <button class="ac-send" id="acSend" aria-label="Enviar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+    </button>
+  </div>
+  <div class="ac-foot">Assistente em teste • respostas podem conter imprecisões</div>
+</div>
+
+<button class="ac-fab" id="acFab" aria-label="Abrir assistente" aria-expanded="false" aria-controls="acPanel">
+  <span class="ac-ping"></span>
+  <svg class="ac-ico-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg class="ac-ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+</button>
+
+<script>
+(function(){
+  /* ============================================================
+     CONFIGURAÇÃO DO ASSISTENTE
+     Cole a URL do Webhook do seu fluxo n8n no campo abaixo.
+     Ex.: https://acontece.app.n8n.cloud/webhook/assistente-manual
+     Enquanto estiver vazio, o assistente usa a busca local do manual.
+     ============================================================ */
+  const CFG = {
+    webhookUrl: "",                       // <<< COLE A URL DO WEBHOOK N8N AQUI
+    whatsapp: "https://wa.me/556133444112",
+    welcome: "Olá! 👋 Sou o assistente do **Manual do Locatário**. Me diga o que procura — ex.: \"como emito o boleto\", \"posso ter pet\", \"multa pra sair antes do prazo\" — que eu te levo direto à seção.",
+    chips: ["Como emito o boleto?","Posso ter pet?","Multa pra sair antes do prazo","Prazo pra contestar a vistoria"]
+  };
+
+  const $=s=>document.querySelector(s);
+  const fab=$("#acFab"), panel=$("#acPanel"), nudge=$("#acNudge");
+  const msgs=$("#acMsgs"), chipsBox=$("#acChips"), ta=$("#acText"), sendBtn=$("#acSend");
+  const hasModules = (typeof modules!=="undefined" && Array.isArray(modules));
+  const TOC = hasModules ? modules.map(m=>({id:m.id,title:m.title,sum:m.sum||"",group:m.group||""})) : [];
+  const idTitle = Object.fromEntries(TOC.map(t=>[t.id,t.title]));
+  const stripTags = h => (h||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+
+  /* ---- sessão persistente (fallback em memória) ---- */
+  let sessionId;
+  try{ sessionId=localStorage.getItem("ac_sess")||(crypto.randomUUID?crypto.randomUUID():"s"+Date.now()); localStorage.setItem("ac_sess",sessionId); }
+  catch(e){ sessionId="s"+Date.now()+Math.random().toString(16).slice(2); }
+
+  /* ---- abrir / fechar ---- */
+  let started=false;
+  function openPanel(){
+    document.documentElement.classList.add("ac-open");
+    fab.setAttribute("aria-expanded","true");
+    hideNudge();
+    if(!started){ started=true; botSay(CFG.welcome); renderChips(); }
+    setTimeout(()=>ta.focus(),180);
+  }
+  function closePanel(){ document.documentElement.classList.remove("ac-open"); fab.setAttribute("aria-expanded","false"); }
+  function toggle(){ document.documentElement.classList.contains("ac-open")?closePanel():openPanel(); }
+  fab.addEventListener("click",toggle);
+  $("#acClose").addEventListener("click",closePanel);
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&document.documentElement.classList.contains("ac-open"))closePanel(); });
+
+  /* ---- nudge (aparece 1x após alguns segundos) ---- */
+  function hideNudge(){ nudge.classList.remove("show"); }
+  $("#acNudgeX").addEventListener("click",e=>{ e.stopPropagation(); hideNudge(); try{localStorage.setItem("ac_nudge","1")}catch(_){} });
+  nudge.addEventListener("click",openPanel);
+  try{ if(!localStorage.getItem("ac_nudge")) setTimeout(()=>{ if(!document.documentElement.classList.contains("ac-open")) nudge.classList.add("show"); },4000); }catch(_){}
+
+  /* ---- render helpers ---- */
+  const BOT_AVA='<span class="ac-mava"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>';
+  function esc(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+  function fmt(s){
+    let t=esc(s);
+    t=t.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>");
+    t=t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+    return t.replace(/\n/g,"<br>");
+  }
+  function scrollDown(){ msgs.scrollTop=msgs.scrollHeight; }
+  function meSay(text){
+    const row=document.createElement("div"); row.className="ac-row me";
+    row.innerHTML='<div class="ac-bubble">'+fmt(text)+'</div>';
+    msgs.appendChild(row); scrollDown();
+  }
+  function botSay(text,sections){
+    const row=document.createElement("div"); row.className="ac-row bot";
+    let html=BOT_AVA+'<div class="ac-bubble">'+fmt(text);
+    if(sections&&sections.length){
+      html+='<div class="ac-jumps">'+sections.map(s=>
+        '<button class="ac-jump" data-id="'+esc(s.id)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg> '+esc(s.title)+'</button>'
+      ).join("")+'</div>';
+    }
+    html+='</div>';
+    row.innerHTML=html;
+    row.querySelectorAll(".ac-jump").forEach(b=>b.addEventListener("click",()=>goTo(b.dataset.id)));
+    msgs.appendChild(row); scrollDown();
+  }
+  function typing(on){
+    let t=$("#acTyping");
+    if(on){ if(!t){ const row=document.createElement("div"); row.className="ac-row bot"; row.id="acTypingRow";
+      row.innerHTML=BOT_AVA+'<div class="ac-typing" id="acTyping"><span></span><span></span><span></span></div>'; msgs.appendChild(row); scrollDown(); } }
+    else { const r=$("#acTypingRow"); if(r)r.remove(); }
+  }
+  function renderChips(){
+    chipsBox.innerHTML="";
+    CFG.chips.forEach(c=>{ const b=document.createElement("button"); b.className="ac-chip"; b.textContent=c;
+      b.addEventListener("click",()=>{ ta.value=c; send(); }); chipsBox.appendChild(b); });
+  }
+
+  /* ---- navegar até a seção ---- */
+  function goTo(id){
+    if(typeof openModule==="function"){ openModule(id,true); }
+    else { const el=document.getElementById(id); if(el){el.classList.add("open");el.scrollIntoView({behavior:"smooth",block:"start"});} }
+    if(window.matchMedia("(max-width:480px)").matches) closePanel();
+  }
+
+  /* ---- busca local (fallback / quando n8n não está configurado) ---- */
+  function localSearch(q){
+    if(!hasModules) return [];
+    const terms=q.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").split(/\s+/).filter(w=>w.length>2);
+    if(!terms.length) return [];
+    const scored=modules.map(m=>{
+      const title=(m.title||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      const body=(m.title+" "+(m.sum||"")+" "+stripTags(m.html)).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      let sc=0; terms.forEach(t=>{ if(title.includes(t))sc+=5; const n=body.split(t).length-1; sc+=Math.min(n,4); });
+      return {id:m.id,title:m.title,sc};
+    }).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc);
+    return scored.slice(0,3);
+  }
+
+  /* ---- interpretar resposta do n8n (formatos variados) ---- */
+  function extractText(d){
+    if(d==null) return "";
+    if(typeof d==="string") return d;
+    if(Array.isArray(d)) return extractText(d[0]);
+    return d.reply||d.output||d.text||d.message||d.answer||d.response||
+           (d.data&&extractText(d.data))||(d.json&&extractText(d.json))||"";
+  }
+  function extractSections(d,text){
+    let ids=[];
+    const pick=o=>{ if(!o)return; if(o.sectionId)ids.push(o.sectionId);
+      if(Array.isArray(o.sections))ids.push(...o.sections.map(s=>typeof s==="string"?s:s&&s.id));
+      if(Array.isArray(o.jumps))ids.push(...o.jumps.map(s=>typeof s==="string"?s:s&&s.id)); };
+    if(Array.isArray(d))d.forEach(pick); else pick(d);
+    if(d&&d.data)pick(d.data); if(d&&d.json)pick(d.json);
+    (text.match(/#([a-z0-9-]+)/gi)||[]).forEach(h=>ids.push(h.slice(1)));  // detecta #id no texto
+    const seen=new Set();
+    return ids.filter(id=>id&&idTitle[id]&&!seen.has(id)&&seen.add(id)).map(id=>({id,title:idTitle[id]}));
+  }
+
+  /* ---- envio ---- */
+  let busy=false;
+  async function send(){
+    const text=ta.value.trim(); if(!text||busy) return;
+    busy=true; sendBtn.disabled=true; meSay(text); ta.value=""; ta.style.height="auto"; chipsBox.innerHTML=""; typing(true);
+    try{
+      if(CFG.webhookUrl){
+        const res=await fetch(CFG.webhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({message:text,sessionId,page:location.href,toc:TOC})});
+        if(!res.ok) throw new Error("HTTP "+res.status);
+        let data; const raw=await res.text();
+        try{ data=JSON.parse(raw); }catch(_){ data=raw; }
+        typing(false);
+        const reply=extractText(data)||"Desculpe, não consegui responder agora.";
+        botSay(reply, extractSections(data,reply));
+      } else {
+        // sem webhook: busca local no conteúdo do manual
+        const hits=localSearch(text);
+        typing(false);
+        if(hits.length) botSay("Encontrei estes trechos do manual que podem te ajudar:",hits);
+        else botSay("Não localizei esse assunto no manual. Tente outras palavras ou fale com a gente pelo WhatsApp: "+CFG.whatsapp);
+      }
+    }catch(err){
+      typing(false);
+      const hits=localSearch(text);
+      if(hits.length) botSay("Tive um problema para consultar o assistente, mas achei no manual:",hits);
+      else botSay("Não consegui me conectar agora. Tente novamente ou fale pelo WhatsApp: "+CFG.whatsapp);
+    }finally{ busy=false; sendBtn.disabled=false; ta.focus(); }
+  }
+  sendBtn.addEventListener("click",send);
+  ta.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); send(); } });
+  ta.addEventListener("input",()=>{ ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight,110)+"px"; });
+})();
 </script>
 </body>
 </html>

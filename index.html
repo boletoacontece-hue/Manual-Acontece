@@ -963,7 +963,7 @@ window.addEventListener("hashchange",()=>{const h=decodeURIComponent(location.ha
      Enquanto estiver vazio, o assistente usa a busca local do manual.
      ============================================================ */
   const CFG = {
-    webhookUrl: "",                       // <<< COLE A URL DO WEBHOOK N8N AQUI
+    webhookUrl: "https://acontece.app.n8n.cloud/webhook/assistente-manual",   // webhook de produção do n8n
     whatsapp: "https://wa.me/556133444112",
     welcome: "Olá! 👋 Sou a **Inteligência Artificial da Acontece**, aqui no Manual do Locatário. Me diga o que procura — ex.: \"como emito o boleto\", \"posso ter pet\", \"multa pra sair antes do prazo\" — que eu te levo direto à seção.",
     chips: ["Como emito o boleto?","Posso ter pet?","Multa pra sair antes do prazo","Prazo pra contestar a vistoria"]
@@ -1098,7 +1098,11 @@ window.addEventListener("hashchange",()=>{const h=decodeURIComponent(location.ha
         try{ data=JSON.parse(raw); }catch(_){ data=raw; }
         typing(false);
         const reply=extractText(data)||"Desculpe, não consegui responder agora.";
-        botSay(reply, extractSections(data,reply));
+        const sections=extractSections(data,reply);
+        let shown=reply;
+        sections.forEach(s=>{ shown=shown.replace(new RegExp("#"+s.id.replace(/[-]/g,"\\-"),"gi"),""); });
+        shown=shown.replace(/[ \t]{2,}/g," ").replace(/\s+([.!?,;])/g,"$1").trim();
+        botSay(shown||reply, sections);
       } else {
         // sem webhook: busca local no conteúdo do manual
         const hits=localSearch(text);
